@@ -14,11 +14,57 @@ HEADER = {'User-Agent': USER_AGENT}
 TIMEOUT = 15
 
 
-def get_trending(url=GITHUB_URL + TRENDING, params=None):
-    ok, soup = get_soup(url, params)
-    if ok:
-        is_nothing = soup.find('div', attrs={'class', 'blankslate'})
-        if is_nothing is None:
+def get_developers(url=DEVELOPERS, params=None):
+    is_not_timeout, soup = get_soup(url, params)
+    if is_not_timeout:
+        is_not_blank, blank_result = no_trending(soup)
+        if is_not_blank:
+            leader_avatars = []
+            for item in soup.find_all('img', attrs={'class': 'leaderboard-gravatar'}):
+                leader_avatars.append(item.attrs['src'].strip())
+            user = []
+            user_link = []
+            full_name = []
+            for item in soup.find_all('h2', attrs={'class': 'user-leaderboard-list-name'}):
+                temp = item.a.attrs['href'].strip()
+                user.append(temp[1:])
+                user_link.append(GITHUB_URL + temp)
+                full_n = item.a.span
+                if full_n is not None:
+                    full_name.append(full_n.get_text().strip())
+                else:
+                    full_name.append('')
+            descriptions = []
+            for item in soup.find_all('span', attrs={'class', 'repo-snipit-description css-truncate-target'}):
+                descriptions.append(item.get_text().strip())
+
+            items = []
+            for u, ul, fn, d in zip(user, user_link, full_name, descriptions):
+                one = {}
+                one.setdefault('user', u)
+                one.setdefault('user_link', ul)
+                one.setdefault('full_name', fn)
+                one.setdefault('description', d)
+                items.append(one)
+
+            return {
+                'items': items,
+            }
+        else:
+            return {
+                'error': blank_result,
+            }
+    else:
+        return {
+            'error': soup,
+        }
+
+
+def get_trending(url=TRENDING, params=None):
+    is_not_timeout, soup = get_soup(url, params)
+    if is_not_timeout:
+        is_not_blank, blank_result = no_trending(soup)
+        if is_not_blank:
             # Repositories
             repos = []
             # Repository links
@@ -65,12 +111,20 @@ def get_trending(url=GITHUB_URL + TRENDING, params=None):
             }
         else:
             return {
-                'error': is_nothing.h3.get_text().strip(),
+                'error': blank_result,
             }
     else:
         return {
             'error': soup,
         }
+
+
+def no_trending(soup):
+    is_nothing = soup.find('div', attrs={'class', 'blankslate'})
+    if is_nothing is None:
+        return True, "ok"
+    else:
+        return False, is_nothing.h3.get_text().strip()
 
 
 def get_soup(url, params=None):
@@ -95,8 +149,7 @@ def get_all_language():
     with open('all_language.txt', 'wt') as f:
         for l in lang:
             f.write(l)
-            f.write('\n')
-
+            f.write(',')
 
 # get_all_language()
 # result=get_trending(url=TRENDING)

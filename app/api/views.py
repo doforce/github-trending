@@ -1,11 +1,18 @@
 from . import api
 from flask import jsonify, request
-from ..scrapy import get_trending, TRENDING, DEVELOPERS
+from ..scrapy import get_trending, get_developers, TRENDING, DEVELOPERS
 
 
 @api.route('/')
 def index():
     return 'ok'
+
+
+@api.route('/developers/')
+def developers():
+    since = request.args.get('since', None)
+    result = get_developers(params={'since': since})
+    return jsonify(result)
 
 
 @api.route('/trending/<language>')
@@ -18,7 +25,7 @@ def trending_lang(language):
 @api.route('/trending/')
 def trending():
     since = request.args.get('since', None)
-    result = get_trending(url=TRENDING, params={'since': since})
+    result = get_trending(params={'since': since})
     return jsonify(result)
 
 
