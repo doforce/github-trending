@@ -77,11 +77,12 @@ def get_trending(url=TRENDING, params=None):
                 desc.append(de.get_text().strip())
 
             items = []
-            for item, rep, rep_l in zip(soup.find_all('div', attrs={'class': 'f6 text-gray mt-2'})
-                    , repos, repo_links):
+            for item, rep, rep_l, des in zip(soup.find_all('div', attrs={'class': 'f6 text-gray mt-2'})
+                    , repos, repo_links, desc):
                 one = {}
                 one.setdefault('repo', rep)
                 one.setdefault('repo_link', rep_l)
+                one.setdefault('desc', des)
 
                 lan = item.find('span', attrs={'itemprop': 'programmingLanguage'})
                 if lan is not None:
