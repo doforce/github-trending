@@ -1,9 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-import datetime
 from requests import exceptions
-
-start_time = datetime.datetime.now()
 
 GITHUB_URL = 'https://github.com'
 TRENDING = GITHUB_URL + '/trending/'
