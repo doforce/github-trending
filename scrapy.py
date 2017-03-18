@@ -11,7 +11,7 @@ DEVELOPERS = GITHUB_URL + '/trending' + '/developers/'
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 ' \
              'Safari/537.36 '
 HEADER = {'User-Agent': USER_AGENT}
-TIMEOUT = 15
+TIMEOUT = 20
 
 
 def get_developers(url=DEVELOPERS, params=None):
