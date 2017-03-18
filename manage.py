@@ -58,7 +58,7 @@ class TrendingLanguageHandler(BaseHandler):
         return get_trending(url=TRENDING + lang, params=params)
 
 
-class DevelopersHandler(BaseHandler):
+class DeveloperHandler(BaseHandler):
     @tornado.gen.coroutine
     def get_result(self, params):
         return get_developers(params=params)
@@ -69,8 +69,8 @@ app = tornado.web.Application([
     (r'/trending/', TrendingHandler),
     (r'/trending', TrendingHandler),
     (r'/trending/(.+)', TrendingLanguageHandler),
-    (r'/developers/', DevelopersHandler),
-    (r'/developers', DevelopersHandler),
+    (r'/developer/', DeveloperHandler),
+    (r'/developer', DeveloperHandler),
 ])
 
 if __name__ == '__main__':
