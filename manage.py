@@ -66,11 +66,11 @@ class DeveloperHandler(BaseHandler):
 
 app = tornado.web.Application([
     (r'/', IndexHandler),
-    (r'/trending/', TrendingHandler),
-    (r'/trending', TrendingHandler),
-    (r'/trending/(.+)', TrendingLanguageHandler),
-    (r'/developer/', DeveloperHandler),
-    (r'/developer', DeveloperHandler),
+    (r'/api/trending/', TrendingHandler),
+    (r'/api/trending', TrendingHandler),
+    (r'/api/trending/(.+)', TrendingLanguageHandler),
+    (r'/api/developer/', DeveloperHandler),
+    (r'/api/developer', DeveloperHandler),
 ])
 
 if __name__ == '__main__':
