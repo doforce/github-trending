@@ -3,61 +3,22 @@ import requests
 from requests import exceptions
 
 GITHUB_URL = 'https://github.com'
-TRENDING = GITHUB_URL + '/trending/'
-DEVELOPERS = GITHUB_URL + '/trending' + '/developers/'
+REPOSITORY = GITHUB_URL + '/trending/'
+DEVELOPER = REPOSITORY + 'developers/'
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 ' \
              'Safari/537.36 '
 HEADER = {'User-Agent': USER_AGENT}
 TIMEOUT = 20
 
 
-def get_developers(url=DEVELOPERS, params=None):
-    is_not_timeout, soup = get_soup(url, params)
-    if is_not_timeout:
-        is_not_blank, blank_result = no_trending(soup)
-        if is_not_blank:
-            leader_avatars = []
-            for item in soup.find_all('img', attrs={'class': 'leaderboard-gravatar'}):
-                leader_avatars.append(item.attrs['src'].strip())
-            user = []
-            user_link = []
-            full_name = []
-            for item in soup.find_all('h2', attrs={'class': 'user-leaderboard-list-name'}):
-                temp = item.a.attrs['href'].strip()
-                user.append(temp[1:])
-                user_link.append(GITHUB_URL + temp)
-                full_n = item.a.span
-                if full_n is not None:
-                    full_name.append(full_n.get_text().strip())
-                else:
-                    full_name.append('')
-            descriptions = []
-            for item in soup.find_all('span', attrs={'class', 'repo-snipit-description css-truncate-target'}):
-                descriptions.append(item.get_text().strip())
-
-            items = []
-            for u, ul, fn, d in zip(user, user_link, full_name, descriptions):
-                one = {}
-                one.setdefault('user', u)
-                one.setdefault('user_link', ul)
-                one.setdefault('full_name', fn)
-                one.setdefault('description', d)
-                items.append(one)
-
-            return {
-                'items': items,
-            }
-        else:
-            return {
-                'error': blank_result,
-            }
-    else:
-        return {
-            'error': soup,
-        }
+def get_trending(url, params=None):
+    if url.startswith(DEVELOPER):
+        return get_developers(url, params)
+    elif url.startswith(REPOSITORY):
+        return get_repository(url, params)
 
 
-def get_trending(url=TRENDING, params=None):
+def get_repository(url, params=None):
     is_not_timeout, soup = get_soup(url, params)
     if is_not_timeout:
         is_not_blank, blank_result = no_trending(soup)
@@ -117,6 +78,52 @@ def get_trending(url=TRENDING, params=None):
         }
 
 
+def get_developers(url, params=None):
+    is_not_timeout, soup = get_soup(url, params)
+    if is_not_timeout:
+        is_not_blank, blank_result = no_trending(soup)
+        if is_not_blank:
+            leader_avatars = []
+            for item in soup.find_all('img', attrs={'class': 'leaderboard-gravatar'}):
+                leader_avatars.append(item.attrs['src'].strip())
+            user = []
+            user_link = []
+            full_name = []
+            for item in soup.find_all('h2', attrs={'class': 'user-leaderboard-list-name'}):
+                temp = item.a.attrs['href'].strip()
+                user.append(temp[1:])
+                user_link.append(GITHUB_URL + temp)
+                full_n = item.a.span
+                if full_n is not None:
+                    full_name.append(full_n.get_text().strip())
+                else:
+                    full_name.append('')
+            descriptions = []
+            for item in soup.find_all('span', attrs={'class', 'repo-snipit-description css-truncate-target'}):
+                descriptions.append(item.get_text().strip())
+
+            items = []
+            for u, ul, fn, d in zip(user, user_link, full_name, descriptions):
+                one = {}
+                one.setdefault('user', u)
+                one.setdefault('user_link', ul)
+                one.setdefault('full_name', fn)
+                one.setdefault('description', d)
+                items.append(one)
+
+            return {
+                'items': items,
+            }
+        else:
+            return {
+                'error': blank_result,
+            }
+    else:
+        return {
+            'error': soup,
+        }
+
+
 def no_trending(soup):
     is_nothing = soup.find('div', attrs={'class', 'blankslate'})
     if is_nothing is None:
@@ -137,7 +144,7 @@ def get_soup(url, params=None):
 
 
 def get_all_language():
-    ok, result = get_soup(url=TRENDING)
+    ok, result = get_soup(url=REPOSITORY)
     lang = []
     for res in result.find_all('span',
                                attrs={'class': 'select-menu-item-text js-select-button-text js-navigation-open'}):
