@@ -10,6 +10,7 @@ USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Ge
 HEADER = {'User-Agent': USER_AGENT}
 TIMEOUT = 20
 
+
 def get_developers(url=DEVELOPERS, params=None):
     is_not_timeout, soup = get_soup(url, params)
     if is_not_timeout:
