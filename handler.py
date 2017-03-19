@@ -7,6 +7,7 @@ import tornado.gen
 import json
 
 from scrapy import get_trending, REPOSITORY, DEVELOPER
+from trending import Trending
 
 
 class IndexHandler(tornado.web.RequestHandler):
@@ -29,7 +30,7 @@ class BaseHandler(tornado.web.RequestHandler):
         self.finish('Ok')
 
     def get_since(self):
-        return self.get_argument('since', None)
+        return {'since':self.get_argument('since', None)}
 
     @tornado.gen.coroutine
     def get_result(self, params):
@@ -73,3 +74,9 @@ class DeveloperLanguageHandler(LanguageHandler):
     def get_url(self):
         return DEVELOPER
 
+
+class TestHandler(BaseHandler):
+
+    def get(self, *args, **kwargs):
+        trend=Trending(url=Trending,params=self.get_since())
+        self.write(json.dumps(trend.get_repos(),indent=2))

@@ -11,28 +11,25 @@ HEADER = {'User-Agent': USER_AGENT}
 TIMEOUT = 20
 
 
-def get_trending(url, params=None):
+def get_trending(url, params):
     if url.startswith(DEVELOPER):
         return get_developers(url, params)
     elif url.startswith(REPOSITORY):
         return get_repository(url, params)
 
 
-def get_repository(url, params=None):
+def get_repository(url, params):
     is_not_timeout, soup = get_soup(url, params)
     if is_not_timeout:
         is_not_blank, blank_result = no_trending(soup)
         if is_not_blank:
-            # Repositories
             repos = []
-            # Repository links
             repo_links = []
             for item in soup.find_all('div', attrs={'class': 'd-inline-block col-9 mb-1'}):
                 item_temp = item.h3.a.attrs['href']
                 repos.append(item_temp)
                 repo_links.append(GITHUB_URL + item_temp)
 
-            # Repository descriptions
             desc = []
             for de in soup.find_all('div', attrs={'class': 'py-1'}):
                 desc.append(de.get_text().strip())
@@ -51,10 +48,17 @@ def get_repository(url, params=None):
                 else:
                     one.setdefault('lang', '')
 
-                one.setdefault('starts', item.find('a', attrs={'class': 'muted-link tooltipped tooltipped-s mr-3'})
-                               .get_text().strip())
+                start = item.find('a', attrs={'class': 'muted-link tooltipped tooltipped-s mr-3'})
+                if start is not None:
+                    one.setdefault("starts", start.get_text().strip())
+                else:
+                    one.setdefault('starts', '')
 
-                one.setdefault('forks', item.find('a', attrs={'aria-label': 'Forks'}).get_text().strip())
+                fork = item.find('a', attrs={'aria-label': 'Forks'})
+                if fork is not None:
+                    one.setdefault('forks', fork.get_text().strip())
+                else:
+                    one.setdefault('forks', '')
 
                 avatar = []
                 for temp in item.find_all('a', attrs={'class': 'no-underline'}):
@@ -62,7 +66,11 @@ def get_repository(url, params=None):
                         avatar.append(con.attrs['src'])
                 one.setdefault('avatars', avatar)
 
-                one.setdefault('added_starts', item.find('span', attrs={'class': 'float-right'}).get_text().strip())
+                added = item.find('span', attrs={'class': 'float-right'})
+                if added is not None:
+                    one.setdefault('added_starts', added.get_text().strip())
+                else:
+                    one.setdefault('added_starts', '')
                 items.append(one)
 
             return {
@@ -78,7 +86,7 @@ def get_repository(url, params=None):
         }
 
 
-def get_developers(url, params=None):
+def get_developers(url, params):
     is_not_timeout, soup = get_soup(url, params)
     if is_not_timeout:
         is_not_blank, blank_result = no_trending(soup)
@@ -132,7 +140,7 @@ def no_trending(soup):
         return False, is_nothing.h3.get_text().strip()
 
 
-def get_soup(url, params=None):
+def get_soup(url, params):
     try:
         r = requests.get(url, params=params, headers=HEADER, timeout=TIMEOUT)
     except exceptions.Timeout as e:
