@@ -116,7 +116,7 @@ def get_developers(url, params):
                 one.setdefault('user', u)
                 one.setdefault('user_link', ul)
                 one.setdefault('full_name', fn)
-                one.setdefault('description', d)
+                one.setdefault('desc', d)
                 items.append(one)
 
             return {
