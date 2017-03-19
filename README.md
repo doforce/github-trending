@@ -51,7 +51,7 @@ https://trendings.herokuapp.com/api/repo/java/?since=weekly
 ```
 
 #### Get the trending developers
-+request address like this:
++ request address like this:
 > /api/dev/<lang>/?since=weekly GET
 
 + lang:optional，maybe is the language of the trending developers using.
