@@ -27,7 +27,7 @@ class BaseHandler(tornado.web.RequestHandler):
     def get(self):
         response = yield tornado.gen.Task(self.get_result, self.get_since())
         self.write(json.dumps(response, indent=2))
-        self.finish('Ok')
+        self.finish()
 
     def get_since(self):
         return {'since':self.get_argument('since', None)}
@@ -43,7 +43,7 @@ class LanguageHandler(BaseHandler):
     def get(self, lang):
         response = yield tornado.gen.Task(self.get_result_language, self.get_since(), lang)
         self.write(json.dumps(response, indent=2))
-        self.finish('Ok')
+        self.finish()
 
     @tornado.gen.coroutine
     def get_result_language(self, params, lang):
