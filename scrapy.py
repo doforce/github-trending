@@ -49,11 +49,11 @@ def get_repository(url, params):
                 else:
                     one.setdefault('lang', '')
 
-                start = item.find('a', attrs={'class': 'muted-link tooltipped tooltipped-s mr-3'})
-                if start is not None:
-                    one.setdefault("starts", start.get_text().strip())
+                star = item.find('a', attrs={'class': 'muted-link tooltipped tooltipped-s mr-3'})
+                if star is not None:
+                    one.setdefault("stars", star.get_text().strip())
                 else:
-                    one.setdefault('starts', '')
+                    one.setdefault('stars', '')
 
                 fork = item.find('a', attrs={'aria-label': 'Forks'})
                 if fork is not None:
@@ -69,9 +69,9 @@ def get_repository(url, params):
 
                 added = item.find('span', attrs={'class': 'float-right'})
                 if added is not None:
-                    one.setdefault('added_starts', added.get_text().strip())
+                    one.setdefault('added_stars', added.get_text().strip())
                 else:
-                    one.setdefault('added_starts', '')
+                    one.setdefault('added_stars', '')
                 items.append(one)
 
             return {
