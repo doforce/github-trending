@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 from requests import exceptions
+import re
 
 GITHUB_URL = 'https://github.com'
 REPOSITORY = GITHUB_URL + '/trending/'
@@ -106,17 +107,27 @@ def get_developers(url, params):
                     full_name.append(full_n.get_text().strip())
                 else:
                     full_name.append('')
-            descriptions = []
+            target_links = []
+            target = []
+            for item in soup.find_all('a', attrs={'class': 'repo-snipit css-truncate'}):
+                temp = item.attrs['href'].strip()
+                target_links.append(GITHUB_URL + temp)
+                t = re.split(r'/', temp)
+                target.append(t[len(t) - 1])
+
+            target_desc = []
             for item in soup.find_all('span', attrs={'class', 'repo-snipit-description css-truncate-target'}):
-                descriptions.append(item.get_text().strip())
+                target_desc.append(item.get_text().strip())
 
             items = []
-            for u, ul, fn, d in zip(user, user_link, full_name, descriptions):
+            for u, ul, fn, tl, t, td in zip(user, user_link, full_name, target_links, target, target_desc):
                 one = {}
                 one.setdefault('user', u)
                 one.setdefault('user_link', ul)
                 one.setdefault('full_name', fn)
-                one.setdefault('desc', d)
+                one.setdefault('target', t)
+                one.setdefault('target_link', tl)
+                one.setdefault('target_desc', td)
                 items.append(one)
 
             return {
