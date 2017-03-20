@@ -14,6 +14,7 @@ It was deployed on Heroku.
 + since,optional，get method parameter，default is daily,ohters is weekly,monthly.
 for example request this address:
 https://trendings.herokuapp.com/api/repo/java/?since=weekly
+
  return:
 ```
 {
@@ -59,6 +60,7 @@ https://trendings.herokuapp.com/api/repo/java/?since=weekly
 
 for example request this address:
 https://trendings.herokuapp.com/api/dev/java/?since=weekly
+
  return：
 ```
 {
