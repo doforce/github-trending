@@ -47,22 +47,22 @@ def get_repository(url, params):
                 if lan is not None:
                     one.setdefault('lang', lan.get_text().strip())
                 else:
-                    one.setdefault('lang', '')
+                    one.setdefault('lang', 'unknown')
 
-                star = item.find('a', attrs={'class': 'muted-link tooltipped tooltipped-s mr-3'})
+                star = item.find('a', attrs={'href': re.compile(rep+"/"+"stargazers")})
                 if star is not None:
                     one.setdefault("stars", star.get_text().strip())
                 else:
                     one.setdefault('stars', '')
 
-                fork = item.find('a', attrs={'aria-label': 'Forks'})
+                fork = item.find('a', attrs={'href': re.compile(rep+"/"+"network")})
                 if fork is not None:
                     one.setdefault('forks', fork.get_text().strip())
                 else:
                     one.setdefault('forks', '')
 
                 avatar = []
-                for temp in item.find_all('a', attrs={'class': 'no-underline'}):
+                for temp in item.find_all('a', attrs={'href': re.compile(rep+"/"+"graphs/contributors")}):
                     for con in temp.find_all('img'):
                         avatar.append(con.attrs['src'])
                 one.setdefault('avatars', avatar)
