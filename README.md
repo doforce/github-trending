@@ -1,3 +1,5 @@
+# Github trending
+
 ![github.png](http://upload-images.jianshu.io/upload_images/2040047-113772827550d86c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ### [中文版](http://www.jianshu.com/p/489ca49e9a99)
@@ -7,18 +9,27 @@ It was deployed on Heroku.
 ***
 
 ### All the requests main adrress is this:https://trendings.herokuapp.com。
-#### Get the trending repository
-+ request address like this:
-> /api/repo/<lang>/?since=weekly    GET
-+ lang:optional，the language of the trending repository.
-+ since,optional，get method parameter，default is daily,ohters is weekly,monthly.
+
+### Get the trending repository
+request address like this:
+> /api/repo/<language>?since=daily
+
++ language:optional，the language of the trending repository.
+
+#### Parameters
+| Name  | Type  | Description |
+| ------| ------ | ------ |
+| since | string | optional，get method parameter，default is daily,ohters is weekly,monthly |
+
 for example request this address:
 https://trendings.herokuapp.com/api/repo/java/?since=weekly
 
  return:
 ```
 {
-  //trending repositories,only 25 items
+  "count": 25,
+  "msg": "done",
+  //trending repositories
   "items": [
     {
       //the avatar link of contributors
@@ -52,11 +63,13 @@ https://trendings.herokuapp.com/api/repo/java/?since=weekly
 ```
 
 #### Get the trending developers
-+ request address like this:
-> /api/dev/<lang>/?since=weekly GET
+request address like this:
+> /api/dev/<language>/?since=weekly
 
-+ lang:optional，maybe is the language of the trending developers using.
-+ since,optional，get method parameter，default is daily,ohters is weekly,monthly.
+#### Parameters
+| Name  | Type  | Description |
+| ------| ------ | ------ |
+| since | string | optional，get method parameter，default is daily,ohters is weekly,monthly |
 
 for example request this address:
 https://trendings.herokuapp.com/api/dev/java/?since=weekly
@@ -64,7 +77,9 @@ https://trendings.herokuapp.com/api/dev/java/?since=weekly
  return：
 ```
 {
-  //the trending developers,only 25 items
+  "count": 25,
+  "msg": "done",
+  //the trending developers
   "items": [
     {
      //the trending repository of this developer
@@ -84,5 +99,32 @@ https://trendings.herokuapp.com/api/dev/java/?since=weekly
     .
     .
 ]
+}
+```
+
+### Exception
+if your request is timeout,the response will be that:
+```
+{
+  "count": 25,
+  "msg": "timeout",
+  "items": []
+}
+```
+And if the GitHub does's display the trending repositories or developers,the response will be that:
+
+```
+{
+  "msg": "Trending repositories results are currently being dissected.",
+  "count":0,
+  "items": []
+}
+```
+or
+```
+{
+  "msg": "Trending developers results are currently being dissected.",
+  "count": 0,
+  "items": []
 }
 ```

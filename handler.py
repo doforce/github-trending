@@ -6,8 +6,7 @@ import tornado.ioloop
 import tornado.gen
 import json
 
-from scrapy import get_trending, REPOSITORY, DEVELOPER
-from trending import Trending
+from trending import get_trending, REPOSITORY, DEVELOPER
 
 
 class IndexHandler(tornado.web.RequestHandler):
@@ -73,10 +72,3 @@ class DeveloperHandler(BaseHandler):
 class DeveloperLanguageHandler(LanguageHandler):
     def get_url(self):
         return DEVELOPER
-
-
-class TestHandler(BaseHandler):
-
-    def get(self, *args, **kwargs):
-        trend=Trending(url=Trending,params=self.get_since())
-        self.write(json.dumps(trend.get_repos(),indent=2))
