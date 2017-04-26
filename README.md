@@ -12,7 +12,7 @@ It was deployed on Heroku.
 
 ### Get the trending repository
 request address like this:
-> /api/repo/<language>?since=daily
+> /api/repo/language
 
 + language:optional，the language of the trending repository.
 
@@ -64,7 +64,7 @@ https://trendings.herokuapp.com/api/repo/java/?since=weekly
 
 #### Get the trending developers
 request address like this:
-> /api/dev/<language>/?since=weekly
+> /api/dev/language
 
 #### Parameters
 | Name  | Type  | Description |
@@ -106,7 +106,7 @@ https://trendings.herokuapp.com/api/dev/java/?since=weekly
 if your request is timeout,the response will be that:
 ```
 {
-  "count": 25,
+  "count": 0,
   "msg": "timeout",
   "items": []
 }
