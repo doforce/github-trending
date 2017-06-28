@@ -7,12 +7,12 @@ define('port', default=8123, type=int)
 
 app = tornado.web.Application([
     (r'/', IndexHandler),
-    (r'/api/repo/', RepositoryHandler),
-    (r'/api/repo', RepositoryHandler),
-    (r'/api/repo/(.+)', RepositoryLanguageHandler),
-    (r'/api/dev/', DeveloperHandler),
-    (r'/api/dev', DeveloperHandler),
-    (r'/api/dev/(.+)', DeveloperLanguageHandler),
+    (r'/repo/', RepositoryHandler),
+    (r'/repo', RepositoryHandler),
+    (r'/repo/(.+)', RepositoryLanguageHandler),
+    (r'/developer/', DeveloperHandler),
+    (r'/developer', DeveloperHandler),
+    (r'/developer/(.+)', DeveloperLanguageHandler),
 ])
 
 if __name__ == '__main__':

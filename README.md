@@ -12,7 +12,7 @@ It was deployed on Heroku.
 
 ### Get the trending repository
 request address like this:
-> /api/repo/language
+> /repo/language
 
 + language:optional，the language of the trending repository.
 
@@ -22,7 +22,7 @@ request address like this:
 | since | string | optional，get method parameter，default is daily,ohters is weekly,monthly |
 
 for example request this address:
-https://trendings.herokuapp.com/api/repo/java/?since=weekly
+https://trendings.herokuapp.com/repo/java/?since=weekly
 
  return:
 ```
@@ -45,7 +45,7 @@ https://trendings.herokuapp.com/api/repo/java/?since=weekly
       //repository desctiption
       "desc": "Everything you need to know to get the job.",
       //repository name
-      "repo": "/kdn251/interviews",
+      "repo": "kdn251/interviews",
       //the repository starts count by far
       "starts": "5,772",
        //the repository forks count by far
@@ -64,7 +64,7 @@ https://trendings.herokuapp.com/api/repo/java/?since=weekly
 
 #### Get the trending developers
 request address like this:
-> /api/dev/language
+> /developer/language
 
 #### Parameters
 | Name  | Type  | Description |
@@ -72,7 +72,7 @@ request address like this:
 | since | string | optional，get method parameter，default is daily,ohters is weekly,monthly |
 
 for example request this address:
-https://trendings.herokuapp.com/api/dev/java/?since=weekly
+https://trendings.herokuapp.com/developer/java/?since=weekly
 
  return：
 ```
@@ -82,18 +82,14 @@ https://trendings.herokuapp.com/api/dev/java/?since=weekly
   //the trending developers
   "items": [
     {
-     //the trending repository of this developer
-      "target_link": "https://github.com/google/guava",
       //the username in GitHub of this developer
       "user": "google",
       //the main page in GitHub of this developer
       "user_link": "https://github.com/google",
-        //the full name of this developer
+      //the full name of this developer
       "full_name": "(Google)",
-      //the trending repository description of this developer
-      "target_desc": "Google Core Libraries for Java",
-      //maybe is the trending repository of this developer
-      "target": "guava"
+      //the avatar url of the developer
+      "developer_avatar": "https://avatars1.githubusercontent.com/u/1342004?v=3&s=96"
     },
     .
     .
