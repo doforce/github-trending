@@ -13,6 +13,7 @@ app = tornado.web.Application([
     (r'/developer/', DeveloperHandler),
     (r'/developer', DeveloperHandler),
     (r'/developer/(.+)', DeveloperLanguageHandler),
+
 ])
 
 if __name__ == '__main__':
