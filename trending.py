@@ -67,7 +67,7 @@ def get_repository(url, params):
                         avatar.append(con.attrs['src'])
                 one.setdefault('avatars', avatar)
 
-                added = item.find('span', attrs={'class': 'float-right'})
+                added = item.find('span', attrs={'class': 'd-inline-block float-sm-right'})
                 if added is not None:
                     one.setdefault('added_stars', added.get_text().strip())
                 else:

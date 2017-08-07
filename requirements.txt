@@ -1,4 +1,4 @@
-beautifulsoup4==4.5.3
-gunicorn==19.7.0
-requests==2.13.0
-tornado==4.4.2
+beautifulsoup4==4.6.0
+gunicorn==19.7.1
+requests==2.18.3
+tornado==4.5.1
