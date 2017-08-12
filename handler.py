@@ -29,7 +29,7 @@ class BaseHandler(tornado.web.RequestHandler):
         self.finish()
 
     def get_since(self):
-        return {'since':self.get_argument('since', None)}
+        return {'since': self.get_argument('since', None)}
 
     @tornado.gen.coroutine
     def get_result(self, params):
@@ -46,7 +46,10 @@ class LanguageHandler(BaseHandler):
 
     @tornado.gen.coroutine
     def get_result_language(self, params, lang):
-        return get_trending(url=self.get_url() + lang, params=params)
+        return get_trending(url=self.get_url() + self.format_language(lang), params=params)
+
+    def format_language(self, lang):
+        return lang.replace('-shuo','%23')
 
     def get_url(self):
         pass
