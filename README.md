@@ -14,7 +14,7 @@ It was deployed on Heroku.
 request address like this:
 > /repo/language
 
-+ language:optional，the language of the trending repository.
++ language:optional，the language of the trending repository.If the language contains '#',you must use '-shuo' to replace it.
 
 #### Parameters
 | Name  | Type  | Description |
@@ -65,6 +65,8 @@ https://trendings.herokuapp.com/repo/java/?since=weekly
 #### Get the trending developers
 request address like this:
 > /developer/language
+
++ language:optional，the developer's major language .If the language contains '#',you must use '-shuo' to replace it.
 
 #### Parameters
 | Name  | Type  | Description |
