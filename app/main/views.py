@@ -40,9 +40,9 @@ def languages():
 def trending(start_url):
     lang = request.args.get('lang')
     since = request.args.get('since')
-    lang = lang.replace('-shuo', '%23')
     url = start_url
     if lang is not None:
+        lang = lang.replace('-shuo', '%23')
         url += lang
     params = None
     if since is not None:
