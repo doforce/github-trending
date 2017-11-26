@@ -34,7 +34,7 @@ def languages():
             'msg': 'Unavialiable.',
             'count': 0,
             'items': []
-        }), 404
+        }), 404, {'Content-Type': 'application/json'}
 
 
 def trending(start_url):
@@ -60,4 +60,4 @@ def trending(start_url):
             'msg': 'Unavialiable',
             'count': size,
             'items': result
-        }), 404
+        }), 404, {'Content-Type': 'application/json'}
