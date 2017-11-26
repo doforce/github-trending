@@ -1,5 +1,0 @@
-Flask==0.12.2
-gevent==1.2.2
-gunicorn==19.7.1
-requests==2.18.3
-tornado==4.5.1
