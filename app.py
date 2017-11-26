@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
 from app import create_app
-from gevent import monkey
-from gevent.pywsgi import WSGIServer
+# from gevent import monkey
+# from gevent.pywsgi import WSGIServer
 
-monkey.patch_all()
+# monkey.patch_all()
 
 app = create_app('default')
 
