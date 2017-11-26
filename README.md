@@ -12,23 +12,25 @@ It was deployed on Heroku.
 
 ### Get the trending repository
 request address like this:
-> /repo/language
+> /repo
 
-+ language:optional，the language of the trending repository.If the language contains '#',you must use '-shuo' to replace it.
++ If the language contains '#',you must use '-shuo' to replace it.
 
 #### Parameters
 | Name  | Type  | Description |
 | ------| ------ | ------ |
-| since | string | optional，get method parameter，default is daily,ohters is weekly,monthly |
+| lang  | string | optional, get method parameter, the language of trending repository      |
+| since | string | optional，get method parameter，default is daily,others is weekly,monthly |
 
-for example request this address:
-https://trendings.herokuapp.com/repo/java/?since=weekly
+For example request this address:
+https://trendings.herokuapp.com/repo?lang=java&since=weekly
 
  return:
 ```
+//status code: 201
 {
   "count": 25,
-  "msg": "done",
+  "msg": "suc",
   //trending repositories
   "items": [
     {
@@ -64,23 +66,25 @@ https://trendings.herokuapp.com/repo/java/?since=weekly
 
 #### Get the trending developers
 request address like this:
-> /developer/language
+> /developer
 
-+ language:optional，the developer's major language .If the language contains '#',you must use '-shuo' to replace it.
++ If the language contains '#',you must use '-shuo' to replace it.
 
 #### Parameters
 | Name  | Type  | Description |
 | ------| ------ | ------ |
-| since | string | optional，get method parameter，default is daily,ohters is weekly,monthly |
+| lang  | string | optional, get method parameter, maybe it is the major language of the developer
+| since | string | optional，get method parameter，default is daily,others is weekly,monthly |
 
-for example request this address:
-https://trendings.herokuapp.com/developer/java/?since=weekly
+For example request this address:
+https://trendings.herokuapp.com/developer?lang=java&since=weekly
 
  return：
 ```
+//status code: 201
 {
   "count": 25,
-  "msg": "done",
+  "msg": "suc",
   //the trending developers
   "items": [
     {
@@ -100,32 +104,42 @@ https://trendings.herokuapp.com/developer/java/?since=weekly
 }
 ```
 
-### Exception
-if your request is timeout,the response will be that:
+### Get all the all the avialiable trending languages if GitHub
+For example,request this address:
+https://trendings.herokuapp.com/lang
+return:
 ```
+//status code: 201
 {
-  "count": 0,
-  "msg": "timeout",
-  "items": []
+    "count": 464,
+    "items": [
+        "1C-Enterprise",
+        "ABAP",
+        "ABNF",
+        "ActionScript",
+        "Ada",
+        .
+        .
+        .
+        "YANG",
+        "Zephir",
+        "Zimpl"
+    ],
+    "msg": "suc"
 }
 ```
-And if the GitHub does's display the trending repositories or developers,the response will be that:
+
+### Exception
+If the server does not get the resources,the response will be that:
 
 ```
+//status code: 404
 {
-  "msg": "Trending repositories results are currently being dissected.",
+  "msg": "Unavialiable.",
   "count":0,
-  "items": []
-}
-```
-or
-```
-{
-  "msg": "Trending developers results are currently being dissected.",
-  "count": 0,
   "items": []
 }
 ```
 
 #### Maintenance
-If some of the interface can not be used,please contact me with email:**xiexiaodong2015@gmail.com**,i will modify the problem as soon as possible,thank you!
+If some of the interface can not be used,please contact me with email:`xiexiaodong2015@gmail.com`,I will modify the problem as soon as possible,thank you!

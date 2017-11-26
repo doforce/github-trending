@@ -31,7 +31,7 @@ def languages():
         }), 201
     else:
         return jsonify({
-            'msg': 'Trending languages is unavialiable.',
+            'msg': 'Unavialiable.',
             'count': 0,
             'items': []
         }), 404
@@ -57,7 +57,7 @@ def trending(start_url):
         }), 201
     else:
         return jsonify({
-            'msg': 'Trending data is unavialiable.',
+            'msg': 'Unavialiable',
             'count': size,
             'items': result
         }), 404
