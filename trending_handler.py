@@ -14,7 +14,7 @@ class IndexHandler(tornado.web.RequestHandler):
         pass
 
     def get(self):
-        self.write('Hello Heroku!')
+        self.write('Hello trending!')
 
 
 class BaseHandler(tornado.web.RequestHandler):

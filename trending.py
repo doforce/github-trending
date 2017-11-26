@@ -160,14 +160,10 @@ def get_soup(url, params):
 
 
 def get_all_language():
-    ok, result = get_soup(url=REPOSITORY)
+    ok, result = get_soup(url=REPOSITORY,params=None)
     lang = []
     for res in result.find_all('span',
                                attrs={'class': 'select-menu-item-text js-select-button-text js-navigation-open'}):
-        lan = res.get_text().strip().replace(' ', '-', 3)
-        lang.append(lan)
-    print(len(lang))
-    with open('all_language.txt', 'wt') as f:
-        for l in lang:
-            f.write(l)
-            f.write(',')
+        if res is not None:
+            lang.append(res.get_text().strip().replace(' ', '-', 3))
+    return lang

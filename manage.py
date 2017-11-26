@@ -1,6 +1,6 @@
 from tornado.options import define, options
 import tornado.concurrent
-from handler import IndexHandler, RepositoryHandler, RepositoryLanguageHandler \
+from trending_handler import IndexHandler, RepositoryHandler, RepositoryLanguageHandler \
     , DeveloperHandler, DeveloperLanguageHandler
 
 define('port', default=8123, type=int)
@@ -13,7 +13,6 @@ app = tornado.web.Application([
     (r'/developer/', DeveloperHandler),
     (r'/developer', DeveloperHandler),
     (r'/developer/(.+)', DeveloperLanguageHandler),
-
 ])
 
 if __name__ == '__main__':
