@@ -104,9 +104,10 @@ https://trendings.herokuapp.com/developer?lang=java&since=weekly
 }
 ```
 
-### Get all the all the avialiable trending languages if GitHub
+### Get all the all the avialiable trending languages in GitHub.
 For example,request this address:
 https://trendings.herokuapp.com/lang
+
 return:
 ```
 //status code: 201
