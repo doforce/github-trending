@@ -48,16 +48,7 @@ def trending(start_url):
     if since is not None:
         params = {'since': since}
     result = get_trending(url=url, params=params)
-    size = len(result)
-    if size > 0:
-        return jsonify({
-            'msg': 'suc',
-            'count': size,
-            'items': result
-        }), 201
+    if result['count'] > 0:
+        return jsonify(result), 201, {'Content-Type': 'application/json'}
     else:
-        return jsonify({
-            'msg': 'Unavialiable',
-            'count': size,
-            'items': result
-        }), 404, {'Content-Type': 'application/json'}
+        return jsonify(result), 404, {'Content-Type': 'application/json'}

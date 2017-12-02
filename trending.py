@@ -75,21 +75,14 @@ def get_repository(url, params):
                 items.append(one)
             return {
                 'count': len(items),
-                'msg': 'done',
+                'msg': 'suc',
                 'items': items,
             }
-        else:
-            return {
-                'count': 0,
-                'msg': blank_result,
-                'items': [],
-            }
-    else:
-        return {
-            'count': 0,
-            'msg': soup,
-            'items': [],
-        }
+    return {
+        'count': 0,
+        'msg': 'Unavialiable.',
+        'items': [],
+    }
 
 
 def get_developers(url, params):
@@ -123,21 +116,14 @@ def get_developers(url, params):
                 items.append(one)
             return {
                 'count': len(items),
-                'msg': 'done',
+                'msg': 'suc',
                 'items': items,
             }
-        else:
-            return {
-                'count': 0,
-                'msg': blank_result,
-                'items': [],
-            }
-    else:
-        return {
-            'count': 0,
-            'msg': soup,
-            'items': [],
-        }
+    return {
+        'count': 0,
+        'msg': 'Unavialiable.',
+        'items': [],
+    }
 
 
 def no_trending(soup):
@@ -160,7 +146,7 @@ def get_soup(url, params):
 
 
 def get_all_language():
-    ok, result = get_soup(url=REPOSITORY,params=None)
+    ok, result = get_soup(url=REPOSITORY, params=None)
     lang = []
     for res in result.find_all('span',
                                attrs={'class': 'select-menu-item-text js-select-button-text js-navigation-open'}):
