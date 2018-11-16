@@ -1,4 +1,5 @@
 from flask import Blueprint
+import asyncio
 
 main = Blueprint('main', __name__)
 

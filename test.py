@@ -9,4 +9,13 @@ print(rep)
 
 from trending import get_all_language
 
-get_all_language()
+from pymongo import MongoClient
+
+client = MongoClient("123.207.111.253",27017)
+
+db = client['trending']
+
+lang = get_all_language()
+
+db.lang.insert_one(lang)
+

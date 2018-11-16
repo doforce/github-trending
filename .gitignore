@@ -1,3 +1,4 @@
-env/
+venv/
 .idea/workspace.xml
 __pycache__/
+.idea/
