@@ -1,7 +1,9 @@
-from tornado import web, options, ioloop
+from tornado import web, ioloop
 from handlers import IndexHandler, RepositoryHandler, LanguageHandler, DeveloperHandler
+from tornado.options import define, options, parse_command_line
 
-options.define('port', default=5000, type=int)
+define('port', default=5000, help='run on the given port', type=int)
+parse_command_line()
 
 app = web.Application([
     (r'/', IndexHandler),
@@ -11,6 +13,5 @@ app = web.Application([
 ])
 
 if __name__ == '__main__':
-    options.parse_command_line()
     app.listen(options.port)
     ioloop.IOLoop.current().start()
