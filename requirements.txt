@@ -1,6 +1,4 @@
 beautifulsoup4
 Flask
-gunicorn
 requests
-requests-html
 tornado
