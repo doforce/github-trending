@@ -1,1 +1,1 @@
-web: python manage.py
+web: python manage.py --port=$PORT
