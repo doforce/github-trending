@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
-import requests
-from requests import exceptions
 import re
+from tornado.httpclient import AsyncHTTPClient, HTTPRequest
 
 GITHUB_URL = 'https://github.com'
 REPOSITORY = GITHUB_URL + '/trending/'
@@ -12,16 +11,16 @@ HEADER = {'User-Agent': USER_AGENT}
 TIMEOUT = 15
 
 
-def get_trending(url, params):
+async def get_trending(url, params):
     if url.startswith(DEVELOPER):
-        return get_developers(url, params)
+        return await get_developers(url, params)
     elif url.startswith(REPOSITORY):
-        return get_repository(url, params)
+        return await get_repository(url, params)
 
 
-def get_repository(url, params):
-    is_not_timeout, soup = get_soup(url, params)
-    if is_not_timeout:
+async def get_repository(url, params):
+    conn_ok, soup = await get_soup(url, params)
+    if conn_ok:
         is_not_blank, blank_result = no_trending(soup)
         if is_not_blank:
             repos = []
@@ -85,9 +84,9 @@ def get_repository(url, params):
     }
 
 
-def get_developers(url, params):
-    is_not_timeout, soup = get_soup(url, params)
-    if is_not_timeout:
+async def get_developers(url, params):
+    conn_ok, soup = await get_soup(url, params)
+    if conn_ok:
         is_not_blank, blank_result = no_trending(soup)
         if is_not_blank:
             developer_avatars = []
@@ -134,19 +133,20 @@ def no_trending(soup):
         return False, is_nothing.h3.get_text().strip()
 
 
-def get_soup(url, params):
+async def get_soup(url, params):
     try:
-        r = requests.get(url, params=params, headers=HEADER, timeout=TIMEOUT)
-    except exceptions.Timeout as e:
-        return False, 'timeout'
-    except exceptions as b:
-        return False, b
+        if params is not None:
+            url = "{0}?since={1}".format(url, params.get('since'))
+        req = HTTPRequest(url, headers=HEADER, request_timeout=TIMEOUT)
+        response = await AsyncHTTPClient().fetch(req)
+    except Exception as e:
+        return False, e
     else:
-        return True, BeautifulSoup(r.text)
+        return True, BeautifulSoup(response.body)
 
 
-def get_all_language():
-    ok, result = get_soup(url=REPOSITORY, params=None)
+async def get_all_language():
+    ok, result = await get_soup(url=REPOSITORY, params=None)
     lang = []
     for res in result.find_all('span',
                                attrs={'class': 'select-menu-item-text js-select-button-text js-navigation-open'}):
