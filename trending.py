@@ -62,7 +62,7 @@ def get_repository(url, params):
                     one.setdefault('forks', '')
 
                 avatar = []
-                for temp in item.find_all('a', attrs={'href': re.compile(rep + "/" + "graphs/contributors")}):
+                for temp in item.find_all('span', attrs={'class': 'd-inline-block mr-3'}):
                     for con in temp.find_all('img'):
                         avatar.append(con.attrs['src'])
                 one.setdefault('avatars', avatar)
