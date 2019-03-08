@@ -143,4 +143,4 @@ If the server does not get the resources,the response will be that:
 ```
 
 #### Maintenance
-If some of the interface can not be used,please contact me with email:`xiexiaodong2015@gmail.com`,I will modify the problem as soon as possible,thank you!
+If some of the interface can not be used,please contact me with email:`jianjiago@gmail.com`,I will modify the problem as soon as possible,thank you!
