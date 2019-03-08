@@ -148,8 +148,8 @@ async def get_soup(url, params):
 async def get_all_language():
     ok, result = await get_soup(url=REPOSITORY, params=None)
     lang = []
-    for res in result.find_all('span',
-                               attrs={'class': 'select-menu-item-text js-select-button-text js-navigation-open'}):
+    select_menu_list = result.find_all('div', attrs={'class': 'select-menu-list'})[1]
+    for res in select_menu_list.find_all('a', attrs={'class': 'select-menu-item'}):
         if res is not None:
             lang.append(res.get_text().strip().replace(' ', '-', 3))
     return lang
