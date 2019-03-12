@@ -48,9 +48,9 @@ https://trendings.herokuapp.com/repo?lang=java&since=weekly
       "desc": "Everything you need to know to get the job.",
       //repository name
       "repo": "kdn251/interviews",
-      //the repository starts count by far
-      "starts": "5,772",
-       //the repository forks count by far
+      //the repository stars count
+      "stars": "5,772",
+       //the repository forks count
       "forks": "539",
       //the language of repository
       "lang": "Java",
