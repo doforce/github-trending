@@ -6,7 +6,7 @@ This project is a GitHub trending API power by Python Tornado.
 It was deployed on Heroku.
 ***
 
-### All the requests main adrress is this:https://trendings.herokuapp.com。
+### All the requests main adrress is this:https://trendings.herokuapp.com
 
 ### Get the trending repository
 request address like this:
