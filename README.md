@@ -2,8 +2,6 @@
 
 ![github.png](http://upload-images.jianshu.io/upload_images/2040047-113772827550d86c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-### [中文版](http://www.jianshu.com/p/489ca49e9a99)
-
 This project is a GitHub trending API power by Python Tornado.
 It was deployed on Heroku.
 ***
