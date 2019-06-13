@@ -2,7 +2,7 @@ from abc import ABC
 
 from tornado.web import RequestHandler
 
-from trending import get_trending, REPOSITORY, DEVELOPER, get_all_language
+from trending import get_trending, NO_RESULT, REPOSITORY, DEVELOPER, get_all_language
 
 
 class IndexHandler(RequestHandler, ABC):
@@ -24,11 +24,7 @@ class LanguageHandler(RequestHandler, ABC):
             })
         else:
             self.set_status(404)
-            self.finish({
-                'msg': 'Unavialiable.',
-                'count': 0,
-                'items': []
-            })
+            self.finish(NO_RESULT)
 
 
 class RepositoryHandler(RequestHandler, ABC):

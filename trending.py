@@ -1,155 +1,97 @@
-from bs4 import BeautifulSoup
-import re
 from tornado.httpclient import AsyncHTTPClient, HTTPRequest
+from lxml import etree
 
-GITHUB_URL = 'https://github.com'
-REPOSITORY = GITHUB_URL + '/trending/'
+GITHUB_URL = 'https://github.com/'
+REPOSITORY = GITHUB_URL + 'trending/'
 DEVELOPER = REPOSITORY + 'developers/'
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 ' \
              'Safari/537.36 '
 HEADER = {'User-Agent': USER_AGENT}
 TIMEOUT = 15
+NO_RESULT = {
+    'count': 0,
+    'msg': 'Unavailable',
+    'items': [],
+}
 
 
-async def get_trending(url, params):
-    if url.startswith(DEVELOPER):
-        return await get_developers(url, params)
-    elif url.startswith(REPOSITORY):
-        return await get_repository(url, params)
-
-
-async def get_repository(url, params):
-    conn_ok, soup = await get_soup(url, params)
-    if conn_ok:
-        is_not_blank, blank_result = no_trending(soup)
-        if is_not_blank:
-            repos = []
-            repo_links = []
-            for item in soup.find_all('div', attrs={'class': 'd-inline-block col-9 mb-1'}):
-                item_temp = item.h3.a.attrs['href']
-                repos.append(item_temp[1:])
-                repo_links.append(GITHUB_URL + item_temp)
-
-            desc = []
-            for de in soup.find_all('div', attrs={'class': 'py-1'}):
-                desc.append(de.get_text().strip())
-
-            items = []
-            for item, rep, rep_l, des in zip(soup.find_all('div', attrs={'class': 'f6 text-gray mt-2'})
-                    , repos, repo_links, desc):
-                one = {}
-                one.setdefault('repo', rep)
-                one.setdefault('repo_link', rep_l)
-                one.setdefault('desc', des)
-
-                lan = item.find('span', attrs={'itemprop': 'programmingLanguage'})
-                if lan is not None:
-                    one.setdefault('lang', lan.get_text().strip())
-                else:
-                    one.setdefault('lang', 'unknown')
-
-                star = item.find('a', attrs={'href': re.compile(rep + "/" + "stargazers")})
-                if star is not None:
-                    one.setdefault("stars", star.get_text().strip())
-                else:
-                    one.setdefault('stars', '')
-
-                fork = item.find('a', attrs={'href': re.compile(rep + "/" + "network")})
-                if fork is not None:
-                    one.setdefault('forks', fork.get_text().strip())
-                else:
-                    one.setdefault('forks', '')
-
-                avatar = []
-                for temp in item.find_all('span', attrs={'class': 'd-inline-block mr-3'}):
-                    for con in temp.find_all('img'):
-                        avatar.append(con.attrs['src'])
-                one.setdefault('avatars', avatar)
-
-                added = item.find('span', attrs={'class': 'd-inline-block float-sm-right'})
-                if added is not None:
-                    one.setdefault('added_stars', added.get_text().strip())
-                else:
-                    one.setdefault('added_stars', '')
-                items.append(one)
-            return {
-                'count': len(items),
-                'msg': 'suc',
-                'items': items,
-            }
-    return {
-        'count': 0,
-        'msg': 'Unavialiable.',
-        'items': [],
-    }
-
-
-async def get_developers(url, params):
-    conn_ok, soup = await get_soup(url, params)
-    if conn_ok:
-        is_not_blank, blank_result = no_trending(soup)
-        if is_not_blank:
-            developer_avatars = []
-            for item in soup.find_all('img', attrs={'class': 'rounded-1'}):
-                developer_avatars.append(item.attrs['src'].strip())
-            user = []
-            user_link = []
-            full_name = []
-            for item in soup.find_all('h2', attrs={'class': 'f3 text-normal'}):
-                temp = item.a.attrs['href'].strip()
-                user.append(temp[1:])
-                user_link.append(GITHUB_URL + temp)
-                full_n = item.a.span
-                if full_n is not None:
-                    full_name.append(full_n.get_text().strip())
-                else:
-                    full_name.append('')
-
-            items = []
-            for u, ul, fn, da in zip(user, user_link, full_name, developer_avatars):
-                one = {}
-                one.setdefault('user', u)
-                one.setdefault('user_link', ul)
-                one.setdefault('full_name', fn)
-                one.setdefault("developer_avatar", da)
-                items.append(one)
-            return {
-                'count': len(items),
-                'msg': 'suc',
-                'items': items,
-            }
-    return {
-        'count': 0,
-        'msg': 'Unavialiable.',
-        'items': [],
-    }
-
-
-def no_trending(soup):
-    is_nothing = soup.find('div', attrs={'class', 'blankslate'})
-    if is_nothing is None:
-        return True, "ok"
+async def get_trending(url: str, params: dict = None) -> dict:
+    html = await get_html(url, params)
+    if html:
+        is_blank = await has_trending(html)
+        if not is_blank:
+            if url.endswith(DEVELOPER):
+                return await parse_developer(html)
+            else:
+                return await parse_repo(html)
+        else:
+            return NO_RESULT
     else:
-        return False, is_nothing.h3.get_text().strip()
+        return NO_RESULT
 
 
-async def get_soup(url, params):
+async def parse_repo(html) -> dict:
+    items = []
+    articles = html.xpath('//article')
+    for article in articles:
+        item = {'repo': article.xpath('./h1/a/@href')[0][1:]}
+        item['repo_link'] = GITHUB_URL + item['repo']
+        tmp = article.xpath('./p/text()')
+        item['desc'] = tmp[0].replace('\n', '').strip() if len(tmp) > 0 else ''
+        tmp = article.xpath('./div[last()]/span[1]/span[2]/text()')
+        item['lang'] = tmp[0].replace('\n', '').strip() if len(tmp) > 0 else ''
+        tmp = article.xpath('./div[last()]/a[1]/text()')
+        item['stars'] = "".join(tmp).replace(' ', '').replace('\n', '')
+        tmp = article.xpath('./div[last()]/a[2]/text()')
+        item['forks'] = "".join(tmp).replace(' ', '').replace('\n', '')
+        tmp = article.xpath('./div[last()]/span[3]/text()')
+        item['added_stars'] = "".join(tmp).replace('\n', '').strip()
+        item['avatars'] = article.xpath('./div[last()]/span[2]/a/img/@src')
+        items.append(item)
+    return {
+        'count': len(items),
+        'msg': 'suc',
+        'items': items
+    }
+
+
+async def parse_developer(html) -> dict:
+    items = []
+    articles = html.xpath('//article')
+    for article in articles:
+        item = {'user': article.xpath('./div[2]/div[1]/h1/a/@href')[0][1:]}
+        item['user_link'] = GITHUB_URL + item['user']
+        item['full_name'] = article.xpath('./div[2]/div[1]/h1/a/text()')[0][1:]
+        item['developer_avatar'] = article.xpath('./div[1]/a/img/@src')[0]
+        items.append(item)
+    return {
+        'count': len(items),
+        'msg': 'suc',
+        'items': items
+    }
+
+
+async def has_trending(html):
+    blank = html.xpath('//div[contains(@class,"blankslate")]')
+    if blank or len(blank) > 0:
+        return html.xpath('string(//div[contains(@class,"blankslate")]/h3)') \
+            .replace('\n', '').strip()
+    else:
+        return None
+
+
+async def get_html(url: str, params: dict = None):
     try:
         if params is not None:
             url = "{0}?since={1}".format(url, params.get('since'))
         req = HTTPRequest(url, headers=HEADER, request_timeout=TIMEOUT)
         response = await AsyncHTTPClient().fetch(req)
-    except Exception as e:
-        return False, e
+    except Exception:
+        return None
     else:
-        return True, BeautifulSoup(response.body)
+        return etree.HTML(response.body)
 
 
 async def get_all_language():
-    ok, result = await get_soup(url=REPOSITORY, params=None)
-    lang = []
-    select_menu_list = result.find_all('div', attrs={'class': 'select-menu-list'})[1]
-    for res in select_menu_list.find_all('a', attrs={'class': 'select-menu-item'}):
-        if res is not None:
-            lang.append(res.get_text().strip().replace(' ', '-', 3))
-    return lang
+    html = await get_html(url=REPOSITORY)
+    return html.xpath('//div[@class="select-menu-list"]/div/a/span/text()')

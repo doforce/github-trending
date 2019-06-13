@@ -53,7 +53,7 @@ https://trendings.herokuapp.com/repo?lang=java&since=weekly
       //the language of repository
       "lang": "Java",
       //the repository stars count for tody or this week or this month
-      "added_starts": "4,591 stars this week"
+      "added_stars": "4,591 stars this week"
     },
     .
     .
@@ -134,7 +134,7 @@ If the server does not get the resources,the response will be that:
 ```
 //status code: 404
 {
-  "msg": "Unavialiable.",
+  "msg": "Unavailable.",
   "count":0,
   "items": []
 }

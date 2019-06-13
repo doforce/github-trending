@@ -1,3 +1,0 @@
-beautifulsoup4
-tornado
-locust
