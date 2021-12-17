@@ -17,6 +17,11 @@ class IndexHandler(CorsMixin, RequestHandler, ABC):
 class LanguageHandler(CorsMixin, RequestHandler, ABC):
     CORS_ORIGIN = '*'
 
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Headers", "x-requested-with")
+        self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+
     async def get(self, *args, **kwargs):
         langs = await get_all_language()
         size = len(langs)
@@ -35,12 +40,22 @@ class LanguageHandler(CorsMixin, RequestHandler, ABC):
 class RepositoryHandler(CorsMixin, RequestHandler, ABC):
     CORS_ORIGIN = '*'
 
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Headers", "x-requested-with")
+        self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+
     async def get(self, *args, **kwargs):
         await trending(self, REPOSITORY)
 
 
 class DeveloperHandler(CorsMixin, RequestHandler, ABC):
     CORS_ORIGIN = '*'
+
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Headers", "x-requested-with")
+        self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
 
     async def get(self, *args, **kwargs):
         await trending(self, DEVELOPER)
