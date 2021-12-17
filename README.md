@@ -1,144 +1,102 @@
-# Github trending
+# Github Trending Repos API
 
-![github.png](http://upload-images.jianshu.io/upload_images/2040047-113772827550d86c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+> This is a fork of [xxdongs/github-trending](https://github.com/xxdongs/github-trending) with CORS enabled
 
-This project is a GitHub trending API power by Python Tornado.
-It was deployed on Heroku.
-***
-
-### All the requests main adrress is this:https://trendings.herokuapp.com
-
-### Get the trending repository
-request address like this:
-> /repo
-
-+ If the language contains '#',you must use '-shuo' to replace it.
+Requests can be made to: [`https://gh-trending-repos.herokuapp.com/repo`](https://gh-trending-repos.herokuapp.com/repo). No auth is required.
 
 #### Parameters
 | Name  | Type  | Description |
 | ------| ------ | ------ |
-| lang  | string | optional, get method parameter, the language of trending repository      |
-| since | string | optional，get method parameter，default is daily,others is weekly,monthly |
+| **`lang`** | `string` | _Optional_ - The language of trending repository. Do not include `#` characters |
+| **`since`** | `string` | _Optional_ - The timeframe, can be either `daily`, `weekly` or `monthly`. Defaults to `daily` |
 
 For example request this address:
-https://trendings.herokuapp.com/repo?lang=java&since=weekly
+https://gh-trending-repos.herokuapp.com/repo?lang=java&since=weekly
 
- return:
-```
-//status code: 201
-{
+
+<details>
+ <summary><b>Example Response</b></summary>
+	<p>
+ 
+  ```json
+  {
   "count": 25,
   "msg": "suc",
-  //trending repositories
   "items": [
     {
-      //the avatar link of contributors
+      "repo": "TencentARC/GFPGAN",
+      "repo_link": "https://github.com/TencentARC/GFPGAN",
+      "desc": "GFPGAN aims at developing Practical Algorithms for Real-world Face Restoration.",
+      "lang": "Python",
+      "stars": "10,767",
+      "forks": "1,635",
+      "added_stars": "5,356 stars this week",
       "avatars": [
-        "https://avatars0.githubusercontent.com/u/16903644?v=3&s=40",
-        "https://avatars2.githubusercontent.com/u/8622362?v=3&s=40",
-        "https://avatars0.githubusercontent.com/u/10773353?v=3&s=40",
-        "https://avatars3.githubusercontent.com/u/6392550?v=3&s=40",
-        "https://avatars1.githubusercontent.com/u/3837836?v=3&s=40"
-      ],
-      //repository link
-      "repo_link": "https://github.com/kdn251/interviews",
-      //repository desctiption
-      "desc": "Everything you need to know to get the job.",
-      //repository name
-      "repo": "kdn251/interviews",
-      //the repository stars count
-      "stars": "5,772",
-       //the repository forks count
-      "forks": "539",
-      //the language of repository
-      "lang": "Java",
-      //the repository stars count for tody or this week or this month
-      "added_stars": "4,591 stars this week"
+        "https://avatars.githubusercontent.com/u/17445847?s=40&v=4",
+        "https://avatars.githubusercontent.com/u/81195143?s=40&v=4",
+        "https://avatars.githubusercontent.com/u/18028233?s=40&v=4",
+        "https://avatars.githubusercontent.com/u/36897236?s=40&v=4",
+        "https://avatars.githubusercontent.com/u/17243165?s=40&v=4"
+      ]
     },
-    .
-    .
-    .
+    {
+      "repo": "dendibakh/perf-book",
+      "repo_link": "https://github.com/dendibakh/perf-book",
+      "desc": "The book \"Performance Analysis and Tuning on Modern CPU\"",
+      "lang": "TeX",
+      "stars": "759",
+      "forks": "47",
+      "added_stars": "445 stars this week",
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/4634056?s=40&v=4"
+      ]
+    }
+    ...
   ]
 }
-```
+  ```
+ 
+ </p>
+</details>
 
-#### Get the trending developers
-request address like this:
-> /developer
+---
 
-+ If the language contains '#',you must use '-shuo' to replace it.
+## Deployment
 
-#### Parameters
-| Name  | Type  | Description |
-| ------| ------ | ------ |
-| lang  | string | optional, get method parameter, maybe it is the major language of the developer
-| since | string | optional，get method parameter，default is daily,others is weekly,monthly |
+Deploy to Heroku:
 
-For example request this address:
-https://trendings.herokuapp.com/developer?lang=java&since=weekly
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/lissy93/gh-trending-no-cors/tree/master)
 
- return：
-```
-//status code: 201
-{
-  "count": 25,
-  "msg": "suc",
-  //the trending developers
-  "items": [
-    {
-      //the username in GitHub of this developer
-      "user": "google",
-      //the main page in GitHub of this developer
-      "user_link": "https://github.com/google",
-      //the full name of this developer
-      "full_name": "(Google)",
-      //the avatar url of the developer
-      "developer_avatar": "https://avatars1.githubusercontent.com/u/1342004?v=3&s=96"
-    },
-    .
-    .
-    .
-]
-}
-```
+Or, Run locally:
+- Get the code: `git clone https://github.com/Lissy93/gh-trending-no-cors.git`
+- Navigate into directory: `cd gh-trending-no-cors`
+- Install dependencies: `pip install -r requirements.txt`
+- Start the web server: `python manage.py --port=8080`
+- Then open your Postman or your browser, and visit `http://localhost:8080/repo`
 
-### Get all the all the avialiable trending languages in GitHub.
-For example,request this address:
-https://trendings.herokuapp.com/lang
+---
 
-return:
-```
-//status code: 201
-{
-    "count": 464,
-    "items": [
-        "1C-Enterprise",
-        "ABAP",
-        "ABNF",
-        "ActionScript",
-        "Ada",
-        .
-        .
-        .
-        "YANG",
-        "Zephir",
-        "Zimpl"
-    ],
-    "msg": "suc"
-}
-```
+## Info
 
-### Exception
-If the server does not get the resources,the response will be that:
+### Contributing
 
-```
-//status code: 404
-{
-  "msg": "Unavailable.",
-  "count":0,
-  "items": []
-}
-```
+Pull requests are welcome :)
 
-#### Maintenance
-If some of the interface can not be used,please contact me with email:`jianjiago@gmail.com`,I will modify the problem as soon as possible,thank you!
+### Dependencies
+
+- [`lxml`](https://github.com/lxml/lxml) - Python XML toolkit
+- [`tornado`](https://github.com/tornadoweb/tornado) - Web framework, developed by FriendFeed
+- [`ustudio-tornado-cors`](https://github.com/ustudio/tornado-cors) - Adds CORS support to Tornado, by @ustudio
+
+### Credits
+
+Full credit to the author of the original repo, [@Edgar](https://github.com/xxdongs)
+
+### Privacy
+
+See the [Heroku/ Salesforce Privacy Policy](https://www.salesforce.com/company/privacy/) for the hosted instance, and the [GitHub Privacy Statement](https://docs.github.com/en/github/site-policy/github-privacy-statement) for the data fetched from the GH API.
+
+### License
+
+This fork is licensed under [MIT](https://mit-license.org/) - © [Alicia Sykes](https://aliciasykes.com) 2021
+
