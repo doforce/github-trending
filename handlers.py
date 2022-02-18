@@ -2,16 +2,21 @@ from abc import ABC
 
 from tornado.web import RequestHandler
 
+from tornado_cors import CorsMixin
+
 from trending import get_trending, NO_RESULT, REPOSITORY, DEVELOPER, get_all_language
 
 
-class IndexHandler(RequestHandler, ABC):
+class IndexHandler(CorsMixin, RequestHandler, ABC):
+    CORS_ORIGIN = '*'
 
     def get(self):
         self.finish('Hello github trending!')
 
 
-class LanguageHandler(RequestHandler, ABC):
+class LanguageHandler(CorsMixin, RequestHandler, ABC):
+    CORS_ORIGIN = '*'
+
     async def get(self, *args, **kwargs):
         langs = await get_all_language()
         size = len(langs)
@@ -27,12 +32,16 @@ class LanguageHandler(RequestHandler, ABC):
             self.finish(NO_RESULT)
 
 
-class RepositoryHandler(RequestHandler, ABC):
+class RepositoryHandler(CorsMixin, RequestHandler, ABC):
+    CORS_ORIGIN = '*'
+
     async def get(self, *args, **kwargs):
         await trending(self, REPOSITORY)
 
 
-class DeveloperHandler(RequestHandler, ABC):
+class DeveloperHandler(CorsMixin, RequestHandler, ABC):
+    CORS_ORIGIN = '*'
+
     async def get(self, *args, **kwargs):
         await trending(self, DEVELOPER)
 
