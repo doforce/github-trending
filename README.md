@@ -141,4 +141,4 @@ If the server does not get the resources,the response will be that:
 ```
 
 #### Maintenance
-If some of the interface can not be used,please contact me with email:`doforce@protonmail.com`,I will modify the problem as soon as possible,thank you!
+If some of the interface can not be used,please contact me with email:`doforce@pm.me`,I will modify the problem as soon as possible,thank you!
