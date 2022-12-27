@@ -20,8 +20,7 @@ async def get_trending(url: str, params: dict = None) -> dict:
     if html:
         is_blank = await has_trending(html)
         if not is_blank:
-            print(url, is_blank)
-            if url.endswith(DEVELOPER):
+            if url.find(DEVELOPER) != -1:
                 return await parse_developer(html)
             else:
                 return await parse_repo(html)
