@@ -1,5 +1,5 @@
-from flask import jsonify
 from lxml import etree
+import requests
 
 GITHUB_URL = 'https://github.com/'
 REPOSITORY = GITHUB_URL + 'trending/'
@@ -83,12 +83,11 @@ async def get_html(url: str, params: dict = None):
     try:
         if params is not None:
             url = "{0}?since={1}".format(url, params.get('since'))
-        req = HTTPRequest(url, headers=HEADER, request_timeout=TIMEOUT)
-        response = await AsyncHTTPClient().fetch(req)
+        response = requests.get(url=url, headers=HEADER, timeout=TIMEOUT)
     except Exception:
         return None
     else:
-        return etree.HTML(response.body)
+        return etree.HTML(response.text)
 
 
 async def get_all_language():
