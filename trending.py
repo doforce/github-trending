@@ -90,6 +90,6 @@ async def get_html(url: str, params: dict = None):
         return etree.HTML(response.text)
 
 
-async def get_all_language():
+async def get_all_language() -> list:
     html = await get_html(url=REPOSITORY)
     return html.xpath('//div[@class="select-menu-list"]/div/a/span/text()')

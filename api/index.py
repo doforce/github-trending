@@ -16,7 +16,7 @@ async def lang():
         return jsonify({
             'msg': 'suc',
             'count': size,
-            'items': langs
+            'items': [x.replace('\n', '').strip() for x in langs],
         }), 201
     else:
         return jsonify(NO_RESULT), 404
