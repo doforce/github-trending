@@ -1,3 +1,4 @@
+from flask import jsonify
 from tornado.httpclient import AsyncHTTPClient, HTTPRequest
 from lxml import etree
 
@@ -13,7 +14,6 @@ NO_RESULT = {
     'msg': 'Unavailable',
     'items': [],
 }
-
 
 async def get_trending(url: str, params: dict = None) -> dict:
     html = await get_html(url, params)
