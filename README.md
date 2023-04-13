@@ -2,11 +2,11 @@
 
 ![github.png](http://upload-images.jianshu.io/upload_images/2040047-113772827550d86c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-This project is a GitHub trending API power by Python Tornado.
-It was deployed on Railway.
+This project is a GitHub trending API power by Python.
+It was deployed on Vercel.
 ***
 
-### All the requests main adrress is this:https://github-trending-production.up.railway.app
+### All the requests main adrress is this:https://github-trending-one.vercel.app
 
 ### Get the trending repository
 request address like this:
@@ -21,7 +21,7 @@ request address like this:
 | since | string | optional，get method parameter，default is daily,others is weekly,monthly |
 
 For example request this address:
-https://github-trending-production.up.railway.app/repo?lang=java&since=weekly
+https://github-trending-one.vercel.app/repo?lang=java&since=weekly
 
  return:
 ```
@@ -75,7 +75,7 @@ request address like this:
 | since | string | optional，get method parameter，default is daily,others is weekly,monthly |
 
 For example request this address:
-https://github-trending-production.up.railway.app/developer?lang=java&since=weekly
+https://github-trending-one.vercel.app/developer?lang=java&since=weekly
 
  return：
 ```
@@ -104,7 +104,7 @@ https://github-trending-production.up.railway.app/developer?lang=java&since=week
 
 ### Get all the all the avialiable trending languages in GitHub.
 For example,request this address:
-https://github-trending-production.up.railway.app/lang
+https://github-trending-one.vercel.app/lang
 
 return:
 ```
