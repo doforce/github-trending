@@ -1,2 +1,4 @@
 lxml==4.8.0
 Flask==2.2.2
+asgiref
+flask[async]

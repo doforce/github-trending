@@ -45,3 +45,4 @@ async def trending(args, start_url: str):
        return jsonify(result), 201
     else:
         return jsonify(result, 404)
+    
