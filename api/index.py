@@ -1,6 +1,6 @@
 from flask import Flask,jsonify,request
 
-from trending import DEVELOPER, NO_RESULT, REPOSITORY, get_all_language, get_trending
+from trending import NO_RESULT, REPOSITORY, get_all_language, get_trending
 
 app = Flask(__name__)
 
@@ -24,10 +24,6 @@ async def lang():
 @app.route('/repo')
 async def repo():
     return await trending(request.args, REPOSITORY)
-
-@app.route('/developer')
-async def developer():
-    return await trending(request.args, DEVELOPER)
 
 
 async def trending(args, start_url: str):

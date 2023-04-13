@@ -62,46 +62,6 @@ https://github-trending-one.vercel.app/repo?lang=java&since=weekly
 }
 ```
 
-#### Get the trending developers
-request address like this:
-> /developer
-
-+ If the language contains '#',you must use '-shuo' to replace it.
-
-#### Parameters
-| Name  | Type  | Description |
-| ------| ------ | ------ |
-| lang  | string | optional, get method parameter, maybe it is the major language of the developer
-| since | string | optional，get method parameter，default is daily,others is weekly,monthly |
-
-For example request this address:
-https://github-trending-one.vercel.app/developer?lang=java&since=weekly
-
- return：
-```
-//status code: 201
-{
-  "count": 25,
-  "msg": "suc",
-  //the trending developers
-  "items": [
-    {
-      //the username in GitHub of this developer
-      "user": "google",
-      //the main page in GitHub of this developer
-      "user_link": "https://github.com/google",
-      //the full name of this developer
-      "full_name": "(Google)",
-      //the avatar url of the developer
-      "developer_avatar": "https://avatars1.githubusercontent.com/u/1342004?v=3&s=96"
-    },
-    .
-    .
-    .
-]
-}
-```
-
 ### Get all the all the avialiable trending languages in GitHub.
 For example,request this address:
 https://github-trending-one.vercel.app/lang

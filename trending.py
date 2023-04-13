@@ -3,11 +3,10 @@ import requests
 
 GITHUB_URL = 'https://github.com/'
 REPOSITORY = GITHUB_URL + 'trending/'
-DEVELOPER = REPOSITORY + 'developers/'
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 ' \
              'Safari/537.36 '
 HEADER = {'User-Agent': USER_AGENT}
-TIMEOUT = 15
+TIMEOUT = 9
 NO_RESULT = {
     'count': 0,
     'msg': 'Unavailable',
@@ -19,10 +18,7 @@ async def get_trending(url: str, params: dict = None) -> dict:
     if html:
         is_blank = await has_trending(html)
         if not is_blank:
-            if url.find(DEVELOPER) != -1:
-                return await parse_developer(html)
-            else:
-                return await parse_repo(html)
+            return await parse_repo(html)
         else:
             return NO_RESULT
     else:
@@ -46,22 +42,6 @@ async def parse_repo(html) -> dict:
         tmp = article.xpath('./div[last()]/span[3]/text()')
         item['added_stars'] = "".join(tmp).replace('\n', '').strip()
         item['avatars'] = article.xpath('./div[last()]/span[2]/a/img/@src')
-        items.append(item)
-    return {
-        'count': len(items),
-        'msg': 'suc',
-        'items': items
-    }
-
-
-async def parse_developer(html) -> dict:
-    items = []
-    articles = html.xpath('//article')
-    for article in articles:
-        item = {'user': article.xpath('./div[2]/div[1]/h1/a/@href')[0][1:]}
-        item['user_link'] = GITHUB_URL + item['user']
-        item['full_name'] = article.xpath('./div[2]/div[1]/h1/a/text()')[0][1:]
-        item['developer_avatar'] = article.xpath('./div[1]/a/img/@src')[0]
         items.append(item)
     return {
         'count': len(items),
