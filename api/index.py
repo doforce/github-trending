@@ -19,7 +19,7 @@ async def lang():
             'items': langs
         }), 201
     else:
-        return jsonify(NO_RESULT, 404)
+        return jsonify(NO_RESULT), 404
 
 @app.route('/repo')
 async def repo():
@@ -44,5 +44,5 @@ async def trending(args, start_url: str):
     if result['count'] > 0:
        return jsonify(result), 201
     else:
-        return jsonify(result, 404)
+        return jsonify(result), 404
     
