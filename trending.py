@@ -1,5 +1,4 @@
 from flask import jsonify
-from tornado.httpclient import AsyncHTTPClient, HTTPRequest
 from lxml import etree
 
 GITHUB_URL = 'https://github.com/'
