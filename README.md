@@ -4,26 +4,31 @@
 
 This project is a GitHub trending API power by Python.
 It was deployed on Vercel.
-***
 
-### All the requests main adrress is this:https://github-trending-one.vercel.app
+---
+
+### All the requests main adrress is this:https://trend.catchmeup.top
 
 ### Get the trending repository
+
 request address like this:
+
 > /repo
 
-+ If the language contains '#',you must use '-shuo' to replace it.
+-   If the language contains '#',you must use '-shuo' to replace it.
 
 #### Parameters
-| Name  | Type  | Description |
-| ------| ------ | ------ |
-| lang  | string | optional, get method parameter, the language of trending repository      |
+
+| Name  | Type   | Description                                                               |
+| ----- | ------ | ------------------------------------------------------------------------- |
+| lang  | string | optional, get method parameter, the language of trending repository       |
 | since | string | optional，get method parameter，default is daily,others is weekly,monthly |
 
 For example request this address:
-https://github-trending-one.vercel.app/repo?lang=java&since=weekly
+https://trend.catchmeup.top/repo?lang=java&since=weekly
 
- return:
+return:
+
 ```
 //status code: 201
 {
@@ -63,10 +68,12 @@ https://github-trending-one.vercel.app/repo?lang=java&since=weekly
 ```
 
 ### Get all the all the avialiable trending languages in GitHub.
+
 For example,request this address:
-https://github-trending-one.vercel.app/lang
+https://trend.catchmeup.top/lang
 
 return:
+
 ```
 //status code: 201
 {
@@ -89,6 +96,7 @@ return:
 ```
 
 ### Exception
+
 If the server does not get the resources,the response will be that:
 
 ```
@@ -101,4 +109,5 @@ If the server does not get the resources,the response will be that:
 ```
 
 #### Maintenance
+
 If some of the interface can not be used,please contact me with email:`doforce@pm.me`,I will modify the problem as soon as possible,thank you!
