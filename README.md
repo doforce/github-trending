@@ -7,7 +7,7 @@ It was deployed on Vercel.
 
 ---
 
-### All the requests main adrress is this:https://trend.catchmeup.top
+### All the requests main adrress is this:https://trend.doforce.xyz
 
 ### Get the trending repository
 
@@ -25,7 +25,7 @@ request address like this:
 | since | string | optional，get method parameter，default is daily,others is weekly,monthly |
 
 For example request this address:
-https://trend.catchmeup.top/repo?lang=java&since=weekly
+https://trend.doforce.xyz/repo?lang=java&since=weekly
 
 return:
 
@@ -70,7 +70,7 @@ return:
 ### Get all the all the avialiable trending languages in GitHub.
 
 For example,request this address:
-https://trend.catchmeup.top/lang
+https://trend.doforce.xyz/lang
 
 return:
 
