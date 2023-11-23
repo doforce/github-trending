@@ -1,3 +1,0 @@
-Flask==3.0.0
-flask[async]
-Scrapy==2.11.0
