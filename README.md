@@ -1,9 +1,7 @@
 ### Github trending
 
-![github.png](http://upload-images.jianshu.io/upload_images/2040047-113772827550d86c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-This project is a GitHub trending API power by FastAPI and Scrapy parsel.
-It was deployed on Vercel.
+This repository is a GitHub trending API power by [FastAPI](https://fastapi.tiangolo.com) and [Scrapy parsel](https://github.com/scrapy/parsel).</br>
+It was deployed to [Vercel](https://vercel.com).
 
 ---
 
@@ -24,7 +22,7 @@ uvicorn main:app --reload
 docker build -t trending . && docker run --rm -p 8000:80 trending
 ```
 
-#### Deploy in Vercel
+#### Deploy to Vercel
 
 Just fork this repository, and import it in your Vercel dashboard.
 
