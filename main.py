@@ -12,7 +12,7 @@ async def lifespan(app: FastAPI):
     # spider.get_items()
     yield
 
-app = FastAPI(title="GitHub Trending APIs", version="2.0.0", contact={
+app = FastAPI(title="GitHub Trending APIs", version="2.0.1", contact={
     "name": "Edgar",
     "url": "https://github.com/doforce/github-trending",
     "email": "doforce@pm.me"

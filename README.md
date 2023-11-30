@@ -7,15 +7,32 @@ It was deployed on Vercel.
 
 ---
 
+#### Run & Deploy
+
+##### Run in development
+
+```bash
+python -m venv .venv
+.venv/Scripts/Activate
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+#### Run in Docker
+
+```bash
+docker build -t trending . && docker run --rm -p 8000:80 trending
+```
+
+#### Deploy in Vercel
+
+Just fork this repository, and import it in your Vercel dashboard.
+
 #### All the requests main adrress is this:https://trend.doforce.xyz
 
-[FastAPI Docs](https://trend.doforce.xyz/docs)
+[Swagger Docs](https://trend.doforce.xyz/docs)
 
-#### Get the trending repositories
-
-request address like this:
-
-> /repo
+#### Get the trending repositories from `/repo`
 
 ##### Parameters
 
@@ -26,8 +43,6 @@ request address like this:
 
 For example request this address:
 https://trend.doforce.xyz/repo?lang=java&since=weekly
-
-return:
 
 ```json
 //status code: 200
@@ -67,11 +82,7 @@ return:
 ]
 ```
 
-#### Get the trending developers
-
-request address like this:
-
-> /user
+#### Get the trending developers from `/user`
 
 ##### Parameters
 
@@ -83,8 +94,6 @@ request address like this:
 
 For example request this address:
 https://trend.doforce.xyz/user?lang=java&since=weekly
-
-return:
 
 ```json
 //status code: 200
@@ -107,12 +116,10 @@ return:
 ]
 ```
 
-### Get all the avialiable trending languages in GitHub.
+### Get all the avialiable trending languages in GitHub from `/lang`
 
 For example,request this address:
 https://trend.doforce.xyz/lang
-
-return:
 
 ```json
 //status code: 200
@@ -127,7 +134,7 @@ return:
 ]
 ```
 
-### Exception
+#### Exception
 
 If the server does not get the resources, or the query parameters you input don't match anything, the response will be like:
 
