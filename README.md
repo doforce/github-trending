@@ -37,7 +37,7 @@ Just fork this repository, and import it in your Vercel dashboard.
 | Name  | Type   | Description                                                  |
 | ----- | ------ | ------------------------------------------------------------ |
 | lang  | string | optional, default is "", the language of trending repository |
-| since | string | optional，default is daily, daily/weekly/monthly             |
+| since | string | optional，default is "daily", daily/weekly/monthly           |
 
 For example request this address:
 https://trend.doforce.xyz/repo?lang=java&since=weekly
@@ -87,7 +87,7 @@ https://trend.doforce.xyz/repo?lang=java&since=weekly
 | Name        | Type   | Description                                                                                |
 | ----------- | ------ | ------------------------------------------------------------------------------------------ |
 | lang        | string | optional, default is "", the language of trending repository                               |
-| since       | string | optional，default is daily, daily/weekly/monthly                                           |
+| since       | string | optional，default is "daily", daily/weekly/monthly                                         |
 | sponsorable | string | optional，default is "", Whether the developer was sponsored, "1" is true, others is false |
 
 For example request this address:
@@ -128,6 +128,14 @@ https://trend.doforce.xyz/lang
         "label": "Unknown languages",
         // the language name which is used to search repositories and developers
         "key": "unknown"
+    },
+    {
+        "label": "Python",
+        "key": "python"
+    },
+    {
+        "label": "C#",
+        "key": "c%23"
     }
 ]
 ```
