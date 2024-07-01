@@ -26,9 +26,9 @@ docker build -t trending . && docker run --rm -p 8000:80 trending
 
 Just fork this repository, and import it in your Vercel dashboard.
 
-#### All the requests main adrress is this:https://trend.doforce.xyz
+#### All the requests main adrress is this:https://trend.doforce.us.kg
 
-[Swagger Docs](https://trend.doforce.xyz/docs)
+[Swagger Docs](https://trend.doforce.us.kg/docs)
 
 #### Get the trending repositories from `/repo`
 
@@ -40,7 +40,7 @@ Just fork this repository, and import it in your Vercel dashboard.
 | since | string | optional，default is "daily", daily/weekly/monthly           |
 
 For example request this address:
-https://trend.doforce.xyz/repo?lang=java&since=weekly
+https://trend.doforce.us.kg/repo?lang=java&since=weekly
 
 ```json
 //status code: 200
@@ -91,7 +91,7 @@ https://trend.doforce.xyz/repo?lang=java&since=weekly
 | sponsorable | string | optional，default is "", Whether the developer was sponsored, "1" is true, others is false |
 
 For example request this address:
-https://trend.doforce.xyz/user?lang=java&since=weekly
+https://trend.doforce.us.kg/user?lang=java&since=weekly
 
 ```json
 //status code: 200
@@ -117,7 +117,7 @@ https://trend.doforce.xyz/user?lang=java&since=weekly
 ### Get all the avialiable trending languages in GitHub from `/lang`
 
 For example,request this address:
-https://trend.doforce.xyz/lang
+https://trend.doforce.us.kg/lang
 
 ```json
 //status code: 200
