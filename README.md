@@ -46,37 +46,37 @@ https://trend.doforce.us.kg/repo?lang=java&since=weekly
 //status code: 200
 // up to 25 items
 [
-    {
-        "repo": "/StarRocks/starrocks",
-        "desc": "StarRocks, a Linux Foundation project, is a next-generation sub-second MPP OLAP database for full analytics scenarios, including multi-dimensional analytics, real-time analytics, and ad-hoc queries. InfoWorld’s 2023 BOSSIE Award for best open source software.",
-        "lang": "Java",
-        "stars": 6338,
-        "forks": 1437,
-        "build_by": [
-            {
-                "avatar": "https://avatars.githubusercontent.com/u/57167462?s=40&v=4",
-                "by": "/amber-create"
-            },
-            {
-                "avatar": "https://avatars.githubusercontent.com/u/98087056?s=40&v=4",
-                "by": "/evelynzhaojie"
-            },
-            {
-                "avatar": "https://avatars.githubusercontent.com/u/4351040?s=40&v=4",
-                "by": "/sduzh"
-            },
-            {
-                "avatar": "https://avatars.githubusercontent.com/u/104624482?s=40&v=4",
-                "by": "/EsoragotoSpirit"
-            },
-            {
-                "avatar": "https://avatars.githubusercontent.com/u/34912776?s=40&v=4",
-                "by": "/stdpain"
-            }
-        ],
-        // How many stars did it gain this week/day/month
-        "change": 619
-    }
+  {
+    "repo": "/StarRocks/starrocks",
+    "desc": "StarRocks, a Linux Foundation project, is a next-generation sub-second MPP OLAP database for full analytics scenarios, including multi-dimensional analytics, real-time analytics, and ad-hoc queries. InfoWorld’s 2023 BOSSIE Award for best open source software.",
+    "lang": "Java",
+    "stars": 6338,
+    "forks": 1437,
+    "build_by": [
+      {
+        "avatar": "https://avatars.githubusercontent.com/u/57167462?s=40&v=4",
+        "by": "/amber-create"
+      },
+      {
+        "avatar": "https://avatars.githubusercontent.com/u/98087056?s=40&v=4",
+        "by": "/evelynzhaojie"
+      },
+      {
+        "avatar": "https://avatars.githubusercontent.com/u/4351040?s=40&v=4",
+        "by": "/sduzh"
+      },
+      {
+        "avatar": "https://avatars.githubusercontent.com/u/104624482?s=40&v=4",
+        "by": "/EsoragotoSpirit"
+      },
+      {
+        "avatar": "https://avatars.githubusercontent.com/u/34912776?s=40&v=4",
+        "by": "/stdpain"
+      }
+    ],
+    // How many stars did it gain this week/day/month
+    "change": 619
+  }
 ]
 ```
 
@@ -97,20 +97,20 @@ https://trend.doforce.us.kg/user?lang=java&since=weekly
 //status code: 200
 // up to 25 items
 [
-    {
-        // developer's GitHub avatar
-        "avatar": "https://avatars.githubusercontent.com/u/322311?s=96&v=4",
-        // developer's nickname
-        "name": "Ben McCann",
-        // developer's GitHub name
-        "github_name": "/benmccann",
-        "popular": {
-            // developer's popular repository
-            "repo": "/benmccann/NameMatching",
-            // developer's popular repository description
-            "desc": "My entry (Yet Another Team Challenge) to MITRE's name matching competition"
-        }
+  {
+    // developer's GitHub avatar
+    "avatar": "https://avatars.githubusercontent.com/u/322311?s=96&v=4",
+    // developer's nickname
+    "name": "Ben McCann",
+    // developer's GitHub name
+    "github_name": "/benmccann",
+    "popular": {
+      // developer's popular repository
+      "repo": "/benmccann/NameMatching",
+      // developer's popular repository description
+      "desc": "My entry (Yet Another Team Challenge) to MITRE's name matching competition"
     }
+  }
 ]
 ```
 
@@ -123,20 +123,20 @@ https://trend.doforce.us.kg/lang
 //status code: 200
 // about 700 items
 [
-    {
-        // The display language name
-        "label": "Unknown languages",
-        // the language name which is used to search repositories and developers
-        "key": "unknown"
-    },
-    {
-        "label": "Python",
-        "key": "python"
-    },
-    {
-        "label": "C#",
-        "key": "c%23"
-    }
+  {
+    // The display language name
+    "label": "Unknown languages",
+    // the language name which is used to search repositories and developers
+    "key": "unknown"
+  },
+  {
+    "label": "Python",
+    "key": "python"
+  },
+  {
+    "label": "C#",
+    "key": "c%23"
+  }
 ]
 ```
 
@@ -148,7 +148,3 @@ If the server does not get the resources, or the query parameters you input don'
 //status code: 200
 []
 ```
-
-#### Maintenance
-
-If some of the api can not be used, please contact me with email:`doforce@pm.me`,I will modify the problem as soon as possible,thank you!
