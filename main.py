@@ -1,22 +1,12 @@
 from fastapi import FastAPI
-from contextlib import asynccontextmanager
 from trending.repo import RepoSpider
 from trending.lang import LangSpider
 from trending.user import UserSpider
 
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # auto reload for test
-    # spider = UserSpider("daily", "java", "")
-    # spider.get_items()
-    yield
-
-app = FastAPI(title="GitHub Trending APIs", version="2.0.1", contact={
+app = FastAPI(title="GitHub Trending APIs", version="2.0.2", contact={
     "name": "Edgar",
     "url": "https://github.com/doforce/github-trending",
-    "email": "doforce@pm.me"
-}, lifespan=lifespan)
+})
 
 
 @app.get("/")
