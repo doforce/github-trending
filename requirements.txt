@@ -1,5 +1,5 @@
 fastapi==0.112.1
 parsel==1.9.1
-requests==2.32.0
+requests==2.32.4
 uvicorn==0.30.6
 fake_useragent==1.5.1
